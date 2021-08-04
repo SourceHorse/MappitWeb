@@ -1,20 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <MappitMap />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import MappitMap from "./components/MappitMap.vue";
 
 @Options({
   components: {
-    HelloWorld,
+    MappitMap,
   },
 })
 export default class App extends Vue {}
 </script>
 
+<style>
+  @import "https://js.arcgis.com/4.20/@arcgis/core/assets/esri/themes/dark/main.css";
+</style>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
