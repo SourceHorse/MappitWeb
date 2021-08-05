@@ -5,6 +5,7 @@
 <script>
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import icons from "../assets/Icons";
 
 export default {
   name: 'MappitMap',
@@ -29,14 +30,16 @@ export default {
     },
     mapClick(e) {
       console.log(e);
+      this.addMarker(e.latlng);
     },
     dragStart() {
       document.getElementById('mapDiv').classList.add('drag');
-      console.log('dragging');
     },
     dragEnd() {
       document.getElementById('mapDiv').classList.remove('drag');
-      console.log('not dragging');
+    },
+    addMarker(latLng) {
+      L.marker([latLng.lat, latLng.lng], {icon: icons.vue}).addTo(this.map);
     }
   }
 }
