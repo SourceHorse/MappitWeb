@@ -3,36 +3,27 @@
 </template>
 
 <script>
-import Map from "@arcgis/core/Map";
-import MapView from "@arcgis/core/views/MapView";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 export default {
   name: 'MappitMap',
   data() {
     return {
       drawLayer: null,
-      view: null,
+      mapView: null,
     }
   },
   mounted() {
-    var map = this.createMap();
-    this.view = new MapView({
-      container: 'mapDiv',
-      map: map,
-      center: [-78.7, 35.8],
-      zoom: 14,
-    });
+    var map = L.map('mapDiv').setView([35.85, -78.8], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
   },
   methods: {
-    createMap() {
-      const map = new Map({
-        basemap: 'topo-vector'
-      });
-      return map;
-    }
+
   }
 }
-
 </script>
 
 <style scoped lang="scss">

@@ -1,22 +1,19 @@
 <template>
-  <MappitMap />
+  <div id="app">
+    <MappitMap />
+  </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
+<script>
 import MappitMap from "./components/MappitMap.vue";
-
-@Options({
+export default {
+  name: 'App',
   components: {
     MappitMap,
-  },
-})
-export default class App extends Vue {}
+  }
+}
 </script>
 
-<style>
-  @import "https://js.arcgis.com/4.20/@arcgis/core/assets/esri/themes/dark/main.css";
-</style>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
