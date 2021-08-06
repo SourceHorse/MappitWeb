@@ -39,12 +39,14 @@ export default {
       document.getElementById('mapDiv').classList.remove('drag');
     },
     addMarker(latLng) {
-      L.marker([latLng.lat, latLng.lng], {icon: icons.vue}).addTo(this.map);
+      L.marker([latLng.lat, latLng.lng]).addTo(this.map);
     }
   }
 }
 </script>
-
+<style scoped>
+  @import "https://unpkg.com/leaflet@1.7.1/dist/leaflet.css";
+</style>
 <style scoped lang="scss">
   .map-div {
     position: absolute;
