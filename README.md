@@ -1,2 +1,2 @@
 # MappitWeb
-SPA for Mappit web application
+SPA for Mappit
