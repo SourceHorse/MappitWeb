@@ -2,6 +2,10 @@
   <div> 
     <div v-show="show" id="plotPanel" class="plot-panel">
       <div class="header">
+        <!-- Vuetify still doesn't support Vue 3?? -->
+        <button class="close">
+          <font-awesome-icon icon="times" />
+        </button>
       </div>
     </div>
   </div>
