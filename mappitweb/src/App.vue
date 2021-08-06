@@ -6,6 +6,7 @@
 
 <script>
 import MappitMap from "./components/MappitMap.vue";
+
 export default {
   name: 'App',
   components: {

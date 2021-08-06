@@ -1,17 +1,24 @@
 <template>
-  <div id="mapDiv" class="map-div"></div>
+  <div id="mapDiv" class="map-div">
+    <PlotPanel 
+      v-bind:showPlotPanel="showPlotPanel"
+    />
+  </div>
 </template>
 
 <script>
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import icons from "../assets/Icons";
+import PlotPanel from "./PlotPanel.vue";
 
 export default {
   name: 'MappitMap',
+  components: {
+    PlotPanel,
+  },
   data() {
     return {
       map: null,
+      showPlotPanel: false,
     }
   },
   mounted() {
@@ -19,6 +26,10 @@ export default {
     this.map.on('click', this.mapClick);
     this.map.on('dragstart', this.dragStart);
     this.map.on('dragend', this.dragEnd);
+
+    this.disableMapInteractionOnElement(document.getElementById("plotPanel"));
+  },
+  watch: {
   },
   methods: {
     createMap() {
@@ -40,6 +51,31 @@ export default {
     },
     addMarker(latLng) {
       L.marker([latLng.lat, latLng.lng]).addTo(this.map);
+      this.showPlotPanel = !this.showPlotPanel;
+    },
+    disableMapInteractionOnElement(element) {
+      element.addEventListener('mouseover', () => {
+        this.map.dragging.disable();
+        this.map.touchZoom.disable();
+        this.map.doubleClickZoom.disable();
+        this.map.scrollWheelZoom.disable();
+        this.map.boxZoom.disable();
+        this.map.keyboard.disable();
+        if (this.map.tap) this.map.tap.disable();
+        this.map.off('click');
+        document.getElementById('mapDiv').classList.add('off-map');
+      });
+      element.addEventListener('mouseleave', () => {
+        this.map.dragging.enable();
+        this.map.touchZoom.enable();
+        this.map.doubleClickZoom.enable();
+        this.map.scrollWheelZoom.enable();
+        this.map.boxZoom.enable();
+        this.map.keyboard.enable();
+        if (this.map.tap) this.map.tap.enable();
+        this.map.on('click', this.mapClick);
+        document.getElementById('mapDiv').classList.remove('off-map');
+      });
     }
   }
 }
@@ -55,7 +91,9 @@ export default {
     height: 100vh;
     width: 100vw;
     cursor: pointer;
-
+    &.off-map {
+      cursor: default;
+    }
     &.drag {
       cursor: grabbing !important;
     }
