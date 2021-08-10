@@ -9,7 +9,7 @@ import L from "leaflet";
 import PlotPanel from "./PlotPanel.vue";
 
 export default {
-  name: "MappitMap",
+  name: "Map",
   components: {
     PlotPanel,
   },
