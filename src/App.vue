@@ -8,13 +8,13 @@
 import Map from "./components/Map.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Map,
-  }
-}
+  },
+};
 </script>
- 
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,11 +27,11 @@ export default {
 //TODO: Move this to another file
 button {
   background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 </style>
