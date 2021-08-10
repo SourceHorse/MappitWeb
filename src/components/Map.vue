@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       map: null,
+      markerLayer: null,
       showPlotPanel: false,
     };
   },
@@ -35,10 +36,13 @@ export default {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
+      this.markerLayer = new L.LayerGroup().addTo(map);
+
       return map;
     },
     mapClick(e) {
       console.log(e);
+      this.clearMarkers();
       this.addMarker(e.latlng);
     },
     dragStart() {
@@ -48,8 +52,11 @@ export default {
       document.getElementById("mapDiv").classList.remove("drag");
     },
     addMarker(latLng) {
-      L.marker([latLng.lat, latLng.lng]).addTo(this.map);
+      L.marker([latLng.lat, latLng.lng]).addTo(this.markerLayer);
       this.showPlotPanel = true;
+    },
+    clearMarkers() {
+      this.markerLayer.clearLayers();
     },
     disableMapInteractionOnElement(element) {
       element.addEventListener("mouseover", () => {
