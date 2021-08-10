@@ -1,7 +1,8 @@
 <template>
   <div id="mapDiv" class="map-div">
     <PlotPanel 
-      v-bind:showPlotPanel="showPlotPanel"
+      v-show="showPlotPanel"
+      @close="showPlotPanel = false"
     />
   </div>
 </template>
@@ -51,7 +52,7 @@ export default {
     },
     addMarker(latLng) {
       L.marker([latLng.lat, latLng.lng]).addTo(this.map);
-      this.showPlotPanel = !this.showPlotPanel;
+      this.showPlotPanel = true;
     },
     disableMapInteractionOnElement(element) {
       element.addEventListener('mouseover', () => {

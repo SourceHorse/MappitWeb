@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <MappitMap />
+    <Map />
   </div>
 </template>
 
 <script>
-import MappitMap from "./components/MappitMap.vue";
+import Map from "./components/Map.vue";
 
 export default {
   name: 'App',
   components: {
-    MappitMap,
+    Map,
   }
 }
 </script>
@@ -24,7 +24,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-// Move this to another file. Please make Vuetify support Vue 3
+//TODO: Move this to another file
 button {
   background: none;
 	color: inherit;
@@ -33,10 +33,5 @@ button {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
-  &.close {
-    :hover {
-      background-color: black;
-    }
-  }
 }
 </style>

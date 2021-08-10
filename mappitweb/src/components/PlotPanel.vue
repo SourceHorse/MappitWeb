@@ -1,40 +1,22 @@
 <template>
-  <div> 
-    <div v-show="show" id="plotPanel" class="plot-panel">
-      <div class="header">
-        <!-- Vuetify still doesn't support Vue 3?? -->
-        <button class="close">
-          <font-awesome-icon icon="times" />
-        </button>
-      </div>
-    </div>
+<div id="plotPanel" class="plot-panel">
+  <div class="header">
+    <!-- Vuetify still doesn't support Vue 3?? -->
+    <button class="close" @click="onClickClose">
+      <font-awesome-icon icon="times" />
+    </button>
   </div>
+</div>
 </template>
 
 <script>
 export default {
   name: 'PlotPanel',
-  components: {
-  },
-  props: {
-    showPlotPanel: false,
-  },
-  data() {
-    return {
-      show: false,
+  methods: {
+    onClickClose() {
+      this.$emit('close');
     }
   },
-  mounted() {
-    
-  },
-  watch: {
-    showPlotPanel(val) {
-      this.show = val;
-    },
-  },
-  methods: {
-    
-  }
 }
 </script>
 
@@ -47,5 +29,10 @@ export default {
     right: 0;
     background-color: white;
     z-index: 1000;
+  }
+  .close {
+    float: right ;
+    height: 40px;
+    width: 50px;
   }
 </style>
