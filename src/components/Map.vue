@@ -1,6 +1,6 @@
 <template>
   <div id="mapDiv" class="map-div">
-    <PlotPanel v-show="showPlotPanel" @close="showPlotPanel = false" />
+    <PlotPanel v-show="showPlotPanel" @close="cancelPlot" />
   </div>
 </template>
 
@@ -44,6 +44,10 @@ export default {
       console.log(e);
       this.clearMarkers();
       this.addMarker(e.latlng);
+      if (!this.showPlotPanel) {
+        this.centerZoomOffset(e.latlng, this.map.getZoom(), [-195, 0]);
+      }
+      this.showPlotPanel = true;
     },
     dragStart() {
       document.getElementById("mapDiv").classList.add("drag");
@@ -52,11 +56,22 @@ export default {
       document.getElementById("mapDiv").classList.remove("drag");
     },
     addMarker(latLng) {
-      L.marker([latLng.lat, latLng.lng]).addTo(this.markerLayer);
-      this.showPlotPanel = true;
+      L.marker(latLng).addTo(this.markerLayer);
     },
     clearMarkers() {
       this.markerLayer.clearLayers();
+    },
+    centerZoomOffset(latLng, zoom, offset) {
+      zoom = zoom ?? this.map.getZoom();
+      offset = offset ?? 0;
+
+      var targetPoint = this.map.project(latLng, zoom).subtract(offset),
+        targetLatLng = this.map.unproject(targetPoint, zoom);
+      this.map.setView(targetLatLng, zoom);
+    },
+    cancelPlot() {
+      this.clearMarkers();
+      this.showPlotPanel = false;
     },
     disableMapInteractionOnElement(element) {
       element.addEventListener("mouseover", () => {
