@@ -1,5 +1,6 @@
 <template>
-  <div id="mapDiv" class="map-div">
+  <div>
+    <div id="mapDiv" class="map-div"></div>
     <PlotPanel v-show="showPlotPanel" @close="cancelPlot" />
   </div>
 </template>
@@ -25,8 +26,6 @@ export default {
     this.map.on("click", this.mapClick);
     this.map.on("dragstart", this.dragStart);
     this.map.on("dragend", this.dragEnd);
-
-    this.disableMapInteractionOnElement(document.getElementById("plotPanel"));
   },
   watch: {},
   methods: {
@@ -45,7 +44,12 @@ export default {
       this.clearMarkers();
       this.addMarker(e.latlng);
       if (!this.showPlotPanel) {
-        this.centerZoomOffset(e.latlng, this.map.getZoom(), [-195, 0]);
+        console.log(this.isMobile());
+        const horizontalOffset = this.isMobile() ? 0 : -195;
+        this.centerZoomOffset(e.latlng, this.map.getZoom(), [
+          horizontalOffset,
+          0,
+        ]);
       }
       this.showPlotPanel = true;
     },
@@ -62,6 +66,7 @@ export default {
       this.markerLayer.clearLayers();
     },
     centerZoomOffset(latLng, zoom, offset) {
+      console.log(offset);
       zoom = zoom ?? this.map.getZoom();
       offset = offset ?? 0;
 
@@ -72,30 +77,6 @@ export default {
     cancelPlot() {
       this.clearMarkers();
       this.showPlotPanel = false;
-    },
-    disableMapInteractionOnElement(element) {
-      element.addEventListener("mouseover", () => {
-        this.map.dragging.disable();
-        this.map.touchZoom.disable();
-        this.map.doubleClickZoom.disable();
-        this.map.scrollWheelZoom.disable();
-        this.map.boxZoom.disable();
-        this.map.keyboard.disable();
-        if (this.map.tap) this.map.tap.disable();
-        this.map.off("click");
-        document.getElementById("mapDiv").classList.add("off-map");
-      });
-      element.addEventListener("mouseleave", () => {
-        this.map.dragging.enable();
-        this.map.touchZoom.enable();
-        this.map.doubleClickZoom.enable();
-        this.map.scrollWheelZoom.enable();
-        this.map.boxZoom.enable();
-        this.map.keyboard.enable();
-        if (this.map.tap) this.map.tap.enable();
-        this.map.on("click", this.mapClick);
-        document.getElementById("mapDiv").classList.remove("off-map");
-      });
     },
   },
 };
