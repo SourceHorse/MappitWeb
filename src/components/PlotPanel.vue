@@ -49,4 +49,9 @@ export default {
     width: 50px;
   }
 }
+@media only screen and (max-width: 450px) {
+  .backdrop {
+    width: 100vw;
+  }
+}
 </style>
