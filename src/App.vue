@@ -33,5 +33,18 @@ button {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+
+  &.primary {
+    background-color: rgb(0, 117, 117);
+    color: white;
+    border-radius: 5px;
+    padding: 1em 2em;
+    font-family: Arial;
+
+    &:hover {
+      background-color: rgb(0, 97, 97);
+      box-shadow: 10px 10px 10px -10px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 </style>

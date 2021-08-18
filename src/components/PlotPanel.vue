@@ -30,7 +30,7 @@ export default {
   width: 390px;
   top: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1001;
 }
 .plot-panel {
   height: 100%;
@@ -41,6 +41,7 @@ export default {
 .header {
   background-color: white;
   height: 40px;
+  font-family: Arial;
 
   .close {
     float: right;

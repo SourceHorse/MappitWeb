@@ -1,7 +1,16 @@
 <template>
   <div>
     <div id="mapDiv" class="map-div"></div>
-    <PlotPanel v-show="showPlotPanel" @close="cancelPlot" />
+    <PlotPanel v-show="showPlotPanel" @close="cancelCreate" />
+    <div class="create-btn-container">
+      <button
+        class="primary post-create-btn"
+        v-if="showCreate"
+        @click="openCreate"
+      >
+        <span>Create Post</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -19,6 +28,8 @@ export default {
       map: null,
       markerLayer: null,
       showPlotPanel: false,
+      showCreate: false,
+      currentLatLng: null,
     };
   },
   mounted() {
@@ -40,18 +51,12 @@ export default {
       return map;
     },
     mapClick(e) {
-      console.log(e);
       this.clearMarkers();
+      this.currentLatLng = e.latlng;
       this.addMarker(e.latlng);
       if (!this.showPlotPanel) {
-        console.log(this.isMobile());
-        const horizontalOffset = this.isMobile() ? 0 : -195;
-        this.centerZoomOffset(e.latlng, this.map.getZoom(), [
-          horizontalOffset,
-          0,
-        ]);
+        this.showCreate = true;
       }
-      this.showPlotPanel = true;
     },
     dragStart() {
       document.getElementById("mapDiv").classList.add("drag");
@@ -66,7 +71,6 @@ export default {
       this.markerLayer.clearLayers();
     },
     centerZoomOffset(latLng, zoom, offset) {
-      console.log(offset);
       zoom = zoom ?? this.map.getZoom();
       offset = offset ?? 0;
 
@@ -74,9 +78,18 @@ export default {
         targetLatLng = this.map.unproject(targetPoint, zoom);
       this.map.setView(targetLatLng, zoom);
     },
-    cancelPlot() {
+    cancelCreate() {
       this.clearMarkers();
       this.showPlotPanel = false;
+    },
+    openCreate() {
+      const horizontalOffset = this.isMobile() ? 0 : -195;
+      this.centerZoomOffset(this.currentLatLng, this.map.getZoom(), [
+        horizontalOffset,
+        0,
+      ]);
+      this.showCreate = false;
+      this.showPlotPanel = true;
     },
   },
 };
@@ -98,5 +111,15 @@ export default {
   &.drag {
     cursor: grabbing !important;
   }
+}
+.post-create-btn {
+  position: absolute;
+  z-index: 1000;
+  bottom: 15%;
+}
+.create-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>
