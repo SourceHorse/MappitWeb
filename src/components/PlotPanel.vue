@@ -7,6 +7,23 @@
           <font-awesome-icon icon="times" />
         </button>
       </div>
+      <div class="panel-body">
+        <v-text-field
+          label="Title"
+        >
+        </v-text-field>
+        <v-text-field
+          v-model="latitude"
+          label="Latitude"
+          :readonly="true"
+        >
+        </v-text-field>
+        <v-text-field
+          v-model="longitude"
+          label="Longitude"
+        >
+        </v-text-field>
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +31,17 @@
 <script>
 export default {
   name: "PlotPanel",
+  props: {
+    currentLatLng: null,
+  },
+  computed: {
+    latitude() {
+      return this.currentLatLng ? this.currentLatLng.lat : null;
+    },
+    longitude() {
+      return this.currentLatLng ? this.currentLatLng.lng : null;
+    },
+  },
   methods: {
     onClickClose() {
       this.$emit("close");
@@ -35,8 +63,14 @@ export default {
 .plot-panel {
   height: 100%;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.7);
   box-shadow: -10px 0px 15px -15px rgba(0, 0, 0, 0.5);
+}
+.panel-body {
+  padding: 10px;
+}
+.v-text-field {
+  padding-bottom: 0px;
 }
 .header {
   background-color: white;

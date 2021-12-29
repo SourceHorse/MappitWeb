@@ -1,7 +1,10 @@
 <template>
   <div>
     <div id="mapDiv" class="map-div"></div>
-    <PlotPanel v-show="showPlotPanel" @close="cancelCreate" />
+    <PlotPanel
+      v-show="showPlotPanel"
+      :currentLatLng="currentLatLng"
+      @close="cancelCreate" />
     <div class="create-btn-container">
       <v-btn
         class="post-create-btn"
