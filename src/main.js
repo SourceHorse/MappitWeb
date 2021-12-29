@@ -1,4 +1,22 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import store from "./store";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import mixins from "./mixins";
+import vuetify from './plugins/vuetify'
+import { loadFonts } from './plugins/webfontloader'
 
-createApp(App).mount('#app')
+library.add(faTimes);
+
+loadFonts()
+
+createApp(App)
+  .use(store)
+  .use(vuetify)
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .mixin({
+    methods: mixins,
+  })
+  .mount('#app')
