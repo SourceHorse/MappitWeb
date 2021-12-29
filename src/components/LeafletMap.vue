@@ -3,13 +3,13 @@
     <div id="mapDiv" class="map-div"></div>
     <PlotPanel v-show="showPlotPanel" @close="cancelCreate" />
     <div class="create-btn-container">
-      <button
-        class="primary post-create-btn"
+      <v-btn
+        class="post-create-btn"
         v-if="showCreate"
         @click="openCreate"
       >
-        <span>Create Post</span>
-      </button>
+        Create Post
+      </v-btn>
     </div>
   </div>
 </template>
