@@ -1,21 +1,20 @@
 <template>
-  <div id="app">
-    <Map />
-  </div>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-import Map from "./components/Map.vue";
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    Map,
-  },
-};
+    HelloWorld
+  }
+}
 </script>
 
-<style lang="scss">
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,28 +22,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-//TODO: Move this to another file
-button {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-
-  &.primary {
-    background-color: rgb(0, 117, 117);
-    color: white;
-    border-radius: 5px;
-    padding: 1em 2em;
-    font-family: Arial;
-
-    &:hover {
-      background-color: rgb(0, 97, 97);
-      box-shadow: 10px 10px 10px -10px rgba(0, 0, 0, 0.5);
-    }
-  }
 }
 </style>
