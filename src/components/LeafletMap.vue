@@ -8,6 +8,7 @@
     <div class="create-btn-container">
       <v-btn
         class="post-create-btn"
+        color="primary"
         v-if="showCreate"
         @click="openCreate"
       >
@@ -40,7 +41,7 @@ export default {
     // force view reload
     // an issue on mobile was causing the map view to only load on the top half of the screen
     this.map.invalidateSize();
-    
+
     this.map.on("click", this.mapClick);
     this.map.on("dragstart", this.dragStart);
     this.map.on("dragend", this.dragEnd);

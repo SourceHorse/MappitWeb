@@ -2,27 +2,43 @@
   <div class="backdrop">
     <div id="plotPanel" class="plot-panel">
       <div class="header">
-        <!-- Vuetify still doesn't support Vue 3?? -->
-        <button class="close" @click="onClickClose">
+        <v-btn
+          small
+          color="primary"
+          @click="onClickClose"
+        >
           <font-awesome-icon icon="times" />
-        </button>
+        </v-btn>
       </div>
       <div class="panel-body">
         <v-text-field
           label="Title"
+          v-model="title"
+        ></v-text-field>
+        <v-textarea
+          auto-grow
+          label="Comment"
+          rows="3"
+          filled
+          v-model="comment"
+        ></v-textarea>
+        <span class="lat-long-text">
+          {{ latLongText }}
+        </span>
+      </div>
+      <div class="action-bar">
+        <v-btn
+          color="primary"
+          elevation="2"
         >
-        </v-text-field>
-        <v-text-field
-          v-model="latitude"
-          label="Latitude"
-          :readonly="true"
+        Submit
+        </v-btn>
+        <v-btn
+          elevation="2"
+          @click="onClickClose"
         >
-        </v-text-field>
-        <v-text-field
-          v-model="longitude"
-          label="Longitude"
-        >
-        </v-text-field>
+        Cancel
+        </v-btn>
       </div>
     </div>
   </div>
@@ -34,6 +50,12 @@ export default {
   props: {
     currentLatLng: null,
   },
+  data() {
+    return {
+      title: null,
+      comment: null,
+    };
+  },
   computed: {
     latitude() {
       return this.currentLatLng ? this.currentLatLng.lat : null;
@@ -41,9 +63,14 @@ export default {
     longitude() {
       return this.currentLatLng ? this.currentLatLng.lng : null;
     },
+    latLongText() {
+      return `lat: ${Math.round((this.latitude + Number.EPSILON)*100000)/100000}, long: ${Math.round((this.longitude + Number.EPSILON)*100000)/100000}`
+    }
   },
   methods: {
     onClickClose() {
+      this.title = null;
+      this.comment = null;
       this.$emit("close");
     },
   },
@@ -63,25 +90,46 @@ export default {
 .plot-panel {
   height: 100%;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: -10px 0px 15px -15px rgba(0, 0, 0, 0.5);
 }
 .panel-body {
   padding: 10px;
+  height: 100%;
 }
 .v-text-field {
   padding-bottom: 0px;
 }
-.header {
+.action-bar {
+  border-top: 1px solid #eee;
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  width: 100%;
   background-color: white;
-  height: 40px;
+  .v-btn {
+    display: block;
+    float: left;
+    margin-right: 10px;
+  }
+}
+.header {
+  border-bottom: 1px solid #eee;
+  display: inline-block;
+  background-color: white;
   font-family: Arial;
-  .close {
+  padding: 10px;
+  width: 100%;
+  .v-btn {
     float: right;
     font-size: 17px;
-    height: 100%;
-    width: 50px;
   }
+  .v-btn--size-default {
+    min-width: 0px;
+  }
+}
+.lat-long-text {
+  opacity: 0.5;
 }
 @media only screen and (max-width: 450px) {
   .backdrop {

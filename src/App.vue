@@ -28,4 +28,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.v-field-label--floating {
+  font-size: 0.75rem;
+}
 </style>
