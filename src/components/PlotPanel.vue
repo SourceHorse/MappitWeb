@@ -81,7 +81,7 @@ export default {
 .backdrop {
   position: absolute;
   backdrop-filter: blur(7px);
-  height: 100vh;
+  height: 100%;
   width: 390px;
   top: 0;
   right: 0;
