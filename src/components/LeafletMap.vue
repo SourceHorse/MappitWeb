@@ -52,7 +52,23 @@ export default {
     this.map.on("dragstart", this.dragStart);
     this.map.on("dragend", this.dragEnd);
   },
-  watch: {},
+  computed: {
+    posts() {
+      return this.$store.state.posts.posts;
+    }
+  },
+  watch: {
+    posts: {
+      handler: function(val) {
+        if (val.length) {
+          val.forEach(post => {
+            this.textMarker(post).addTo(this.markerLayer);
+          });
+        }
+      },
+      deep: true
+    }
+  },
   methods: {
     createMap() {
       var map = L.map("mapDiv").setView([35.85, -78.8], 11);
@@ -102,6 +118,16 @@ export default {
       this.showCreate = false;
       this.showPlotPanel = true;
     },
+    textMarker(postData) {
+      const textLabel = L.marker(postData.latLng, {
+        icon: L.divIcon({
+          className: 'post-preview',
+          html:'test text'
+        }),
+        zIndexOffset: 1000
+      });
+      return textLabel;
+    }
   },
 };
 </script>
