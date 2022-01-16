@@ -30,6 +30,7 @@
         <v-btn
           color="primary"
           elevation="2"
+          @click="addPost"
         >
         Submit
         </v-btn>
@@ -65,6 +66,17 @@ export default {
     },
     latLongText() {
       return `lat: ${Math.round((this.latitude + Number.EPSILON)*100000)/100000}, long: ${Math.round((this.longitude + Number.EPSILON)*100000)/100000}`
+    },
+    posts() {
+      return this.$store.state.posts.posts;
+    }
+  },
+  watch: {
+    posts: {
+      handler: function(val) {
+        console.log(val[0]);
+      },
+      deep: true
     }
   },
   methods: {
@@ -73,6 +85,16 @@ export default {
       this.comment = null;
       this.$emit("close");
     },
+    addPost() {
+      console.log('component method');
+      const post = {
+        title: this.title,
+        body: this.comment,
+        latLng: this.currentLatLng,
+      };
+      console.log(post);
+      this.$store.commit('posts/addPost', post);
+    }
   },
 };
 </script>

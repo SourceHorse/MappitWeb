@@ -21,6 +21,7 @@
 <script>
 import L from "leaflet";
 import PlotPanel from "./PlotPanel.vue";
+import postsStore from "@/store/posts";
 export default {
   name: "LeafletMap",
   components: {
@@ -34,6 +35,11 @@ export default {
       showCreate: false,
       currentLatLng: null,
     };
+  },
+  beforeCreate() {
+    if (!this.$store.state.posts) {
+      this.$store.registerModule('posts', postsStore);
+    }
   },
   mounted() {
     this.map = this.createMap();
