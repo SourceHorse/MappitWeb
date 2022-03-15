@@ -1,18 +1,21 @@
 <template>
   <v-app>
     <v-main>
-      <leaflet-map />
+      <!-- <leaflet-map /> -->
+      <esri-map />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import LeafletMap from './components/LeafletMap.vue'
+// import LeafletMap from './components/LeafletMap.vue'
+import EsriMap from './components/EsriMap.vue'
 
 export default {
   name: 'App',
   components: {
-    LeafletMap,
+    // LeafletMap,
+    EsriMap,
   },
 
   data: () => ({
