@@ -73,7 +73,13 @@ export default {
     },
     createMarkerGraphic() {
       return new SimpleMarkerSymbol({
-        color: '#b042ff',
+        color: {r:98, g:0, b:238, a:1},
+        outline: {
+          type: 'simple-line',
+          color: {r:255, g:255, b:255, a:1},
+          width: '1px',
+          style: 'solid',
+        },
         size: 30,
         xoffset: -2,
         yoffset: 17,
