@@ -48,8 +48,10 @@ export default {
   watch: {
     selectedPoint(val) {
       this.$options.markerLayer.removeAll();
-      this.addMarker(new Point({latitude: val.latitude, longitude: val.longitude}));
       this.$emit('selected-point', this.selectedPoint);
+      if (val) {
+        this.addMarker(new Point({latitude: val.latitude, longitude: val.longitude}));
+      }
     },
   },
   methods: {
@@ -67,11 +69,11 @@ export default {
     addMarker(point) {
       const graphic = new Graphic({
         geometry: point,
-        symbol: this.createMarkerGraphic(),
+        symbol: this.createSelectionMarkerGraphic(),
       });
       this.$options.markerLayer.add(graphic);
     },
-    createMarkerGraphic() {
+    createSelectionMarkerGraphic() {
       return new SimpleMarkerSymbol({
         color: {r:98, g:0, b:238, a:1},
         outline: {
@@ -92,6 +94,9 @@ export default {
     selectMapPoint(e) {
       this.selectedPoint = {latitude: e.mapPoint.latitude, longitude: e.mapPoint.longitude};
     },
+    clearMapPoint() {
+      this.selectedPoint = null;
+    }
   },
 }
 </script>

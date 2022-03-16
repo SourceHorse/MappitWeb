@@ -2,17 +2,18 @@
   <v-app>
     <v-main>
       <!-- <leaflet-map /> -->
-      <esri-map 
-        v-on:selected-point= "selectedPoint = $event" />
+      <esri-map
+        ref="esriMap"
+        v-on:selected-point="selectedPoint = $event" />
       <PlotPanel
         v-show="showPlotPanel"
-        :currentLatLng="currentLatLng"
+        :selectedPoint="selectedPoint"
         @close="cancelCreate" />
       <div class="create-btn-container">
         <v-btn
           class="post-create-btn"
           color="primary"
-          v-if="selectedPoint"
+          v-if="selectedPoint && !showPlotPanel"
           @click="openCreate"
         >
           Create Post
@@ -39,7 +40,7 @@ export default {
   data() {
     return {
       selectedPoint: null,
-      showCreate: false,
+      showPlotPanel: false,
     }
   },
   beforeCreate() {
@@ -54,6 +55,14 @@ export default {
     },
   },
   methods: {
+    openCreate() {
+      this.showCreate = false;
+      this.showPlotPanel = true;
+    },
+    cancelCreate() {
+      this.showPlotPanel = false;
+      this.$refs.esriMap.clearMapPoint();
+    }
   }
 }
 </script>

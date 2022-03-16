@@ -49,7 +49,7 @@
 export default {
   name: "PlotPanel",
   props: {
-    currentLatLng: null,
+    selectedPoint: null,
   },
   data() {
     return {
@@ -59,10 +59,10 @@ export default {
   },
   computed: {
     latitude() {
-      return this.currentLatLng ? this.currentLatLng.lat : null;
+      return this.selectedPoint ? this.selectedPoint.latitude : null;
     },
     longitude() {
-      return this.currentLatLng ? this.currentLatLng.lng : null;
+      return this.selectedPoint ? this.selectedPoint.longitude : null;
     },
     latLongText() {
       return `lat: ${Math.round((this.latitude + Number.EPSILON)*100000)/100000}, long: ${Math.round((this.longitude + Number.EPSILON)*100000)/100000}`
