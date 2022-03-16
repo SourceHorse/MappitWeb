@@ -16,31 +16,41 @@ export default {
   components:{},
   data() {
     return {
+      map: null,
       mapView: null,
       markerLayer: null,
       mapSettings: {
         basemap: 'dark-gray-vector',
-      }
+      },
+      selectedPoint: null,
     }
   },
   mounted() {
     // create map
-    const map = this.createMap(this.mapSettings);
-    // add layers
-    const markerLayer = new GraphicsLayer();
     // use $options to remove reactivity as arcgis will not work with vue reactivity
-    this.$options.markerLayer = markerLayer;
-    map.add(markerLayer);
+    this.$options.map = this.createMap(this.mapSettings);
 
-    this.addMarker();
+    // add layers
+    this.$options.markerLayer = new GraphicsLayer();
+    this.$options.map.add(this.$options.markerLayer);
 
-    this.$options.mapView = this.createMapView(map);
-    console.log(this.$options.mapView);
+    // create mapView
+    this.$options.mapView = this.createMapView(this.$options.map);
+
+    // set up events
+    this.enableMapClickSelectPoint();
 
     if (!this.$options.mapView) {
       console.log('failed to create mapView');
       return;
     }
+  },
+  watch: {
+    selectedPoint(val) {
+      this.$options.markerLayer.removeAll();
+      this.addMarker(new Point({latitude: val.latitude, longitude: val.longitude}));
+      this.$emit('selected-point', this.selectedPoint);
+    },
   },
   methods: {
     createMap(mapSettings) {
@@ -54,8 +64,7 @@ export default {
         center: [-78.8, 35.85],
       });
     },
-    addMarker() {
-      const point = new Point({latitude: 35.85, longitude: -78.8});
+    addMarker(point) {
       const graphic = new Graphic({
         geometry: point,
         symbol: this.createMarkerGraphic(),
@@ -64,10 +73,19 @@ export default {
     },
     createMarkerGraphic() {
       return new SimpleMarkerSymbol({
-        color: 'red',
+        color: '#b042ff',
+        size: 30,
+        xoffset: -2,
+        yoffset: 17,
         path: Paths.pin,
       });
-    }
+    },
+    enableMapClickSelectPoint() {
+      this.$options.mapView.on("click", (e) => this.selectMapPoint(e));
+    },
+    selectMapPoint(e) {
+      this.selectedPoint = {latitude: e.mapPoint.latitude, longitude: e.mapPoint.longitude};
+    },
   },
 }
 </script>
@@ -76,5 +94,19 @@ export default {
   .esri-map-main {
     height: 100%;
     width: 100%;
+    
+  }
+  .esri-view .esri-view-surface--inset-outline:focus::after {
+    outline: none !important;
+  }
+  .post-create-btn {
+    position: absolute;
+    z-index: 1000;
+    bottom: 15%;
+  }
+  .create-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 </style>

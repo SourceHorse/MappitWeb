@@ -73,7 +73,8 @@ export default {
     createMap() {
       var map = L.map("mapDiv").setView([35.85, -78.8], 11);
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        className: 'map-tiles',
       }).addTo(map);
       this.markerLayer = new L.LayerGroup().addTo(map);
       return map;
@@ -134,7 +135,7 @@ export default {
 <style scoped>
 @import "https://unpkg.com/leaflet@1.7.1/dist/leaflet.css";
 </style>
-<style scoped lang="scss">
+<style lang="scss">
 .map-div {
   position: absolute;
   top: 0;
@@ -159,4 +160,14 @@ export default {
   display: flex;
   justify-content: center;
 }
+:root {
+    --map-tiles-filter: brightness(0.7) invert(1) contrast(2) hue-rotate(0deg) saturate(0.1) brightness(.7);
+}
+
+@media (prefers-color-scheme: dark) {
+    .map-tiles {
+        filter:var(--map-tiles-filter, none);
+	}
+}
+
 </style>
