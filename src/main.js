@@ -5,7 +5,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import mixins from "./mixins";
-import vuetify from './plugins/vuetify'
+import naive from 'naive-ui';
 import { loadFonts } from './plugins/webfontloader'
 
 library.add(faTimes);
@@ -14,7 +14,7 @@ loadFonts()
 
 createApp(App)
   .use(store)
-  .use(vuetify)
+  .use(naive)
   .component("font-awesome-icon", FontAwesomeIcon)
   .mixin({
     methods: mixins,

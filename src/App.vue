@@ -1,35 +1,23 @@
 <template>
-  <v-app>
-    <v-main>
-      <!-- <leaflet-map /> -->
-      <esri-map
-        ref="esriMap"
-        v-on:selected-point="selectedPoint = $event" />
-      <PlotPanel
-        v-show="showPlotPanel"
-        :selectedPoint="selectedPoint"
-        @close="cancelCreate" />
-      <div class="context-btn-container">
-        <div></div>
-        <v-btn
-          class="post-create-btn"
-          color="primary"
-          v-if="selectedPoint && !showPlotPanel"
-          @click="openCreate"
-        >
-          Create Post
-        </v-btn>
-        <v-btn
-          class="post-create-btn"
-          color="secondary"
-          v-if="selectedPoint && !showPlotPanel"
-          @click="openCreate"
-        >
-          Zoom To
-        </v-btn>
-      </div>
-    </v-main>
-  </v-app>
+  <!-- <leaflet-map /> -->
+  <esri-map
+    ref="esriMap"
+    v-on:selected-point="selectedPoint = $event" />
+  <PlotPanel
+    v-show="showPlotPanel"
+    :selectedPoint="selectedPoint"
+    @close="cancelCreate" />
+  <div class="context-btn-container">
+    <div></div>
+    <n-button
+      class="post-create-btn"
+      type="primary"
+      v-if="selectedPoint && !showPlotPanel"
+      @click="openCreate"
+    >
+      Create Post
+    </n-button>
+  </div>
 </template>
 
 <script>
@@ -90,6 +78,7 @@ export default {
   position: absolute;
   z-index: 1000;
   bottom: 15%;
+  transform: translateX(-50%);
 }
 .create-btn-container {
   width: 100%;

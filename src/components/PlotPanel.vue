@@ -2,44 +2,44 @@
   <div class="backdrop">
     <div id="plotPanel" class="plot-panel">
       <div class="header">
-        <v-btn
-          small
-          color="primary"
+        <n-button
           @click="onClickClose"
         >
           <font-awesome-icon icon="times" />
-        </v-btn>
+        </n-button>
       </div>
       <div class="panel-body">
-        <v-text-field
-          label="Title"
-          v-model="title"
-        ></v-text-field>
-        <v-textarea
-          auto-grow
-          label="Comment"
-          rows="3"
-          filled
-          v-model="comment"
-        ></v-textarea>
+        <n-input
+          v-model:value="title"
+          type="text"
+          placeholder="Title"
+        ></n-input>
+        <n-input
+          v-model:value="comment"
+          type="textarea"
+          placeholder="Comment"
+          size="small"
+          :autosize="{
+            minRows: 3,
+            maxRows: 5
+          }"
+        ></n-input>
         <span class="lat-long-text">
           {{ latLongText }}
         </span>
       </div>
       <div class="action-bar">
-        <v-btn
-          color="primary"
-          elevation="2"
+        <n-button
+          type="primary"
           @click="addPost"
         >
         Submit
-        </v-btn>
-        <v-btn
-          elevation="2"
+        </n-button>
+        <n-button
           @click="onClickClose"
         >
         Cancel
-        </v-btn>
+        </n-button>
       </div>
     </div>
   </div>
@@ -119,9 +119,6 @@ export default {
   padding: 10px;
   height: 100%;
 }
-.v-text-field {
-  padding-bottom: 0px;
-}
 .action-bar {
   border-top: 1px solid #eee;
   position: absolute;
@@ -129,7 +126,7 @@ export default {
   padding: 10px;
   width: 100%;
   background-color: white;
-  .v-btn {
+  .n-button {
     display: block;
     float: left;
     margin-right: 10px;
@@ -142,12 +139,10 @@ export default {
   font-family: Arial;
   padding: 10px;
   width: 100%;
-  .v-btn {
+  .n-button {
     float: right;
     font-size: 17px;
-  }
-  .v-btn--size-default {
-    min-width: 0px;
+    transform: translateX(-50%);
   }
 }
 .lat-long-text {

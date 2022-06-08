@@ -6,14 +6,14 @@
       :currentLatLng="currentLatLng"
       @close="cancelCreate" />
     <div class="create-btn-container">
-      <v-btn
+      <n-button
         class="post-create-btn"
-        color="primary"
+        type="primary"
         v-if="showCreate"
         @click="openCreate"
       >
         Create Post
-      </v-btn>
+      </n-button>
     </div>
   </div>
 </template>
