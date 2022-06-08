@@ -9,7 +9,8 @@
         v-show="showPlotPanel"
         :selectedPoint="selectedPoint"
         @close="cancelCreate" />
-      <div class="create-btn-container">
+      <div class="context-btn-container">
+        <div></div>
         <v-btn
           class="post-create-btn"
           color="primary"
@@ -17,6 +18,14 @@
           @click="openCreate"
         >
           Create Post
+        </v-btn>
+        <v-btn
+          class="post-create-btn"
+          color="secondary"
+          v-if="selectedPoint && !showPlotPanel"
+          @click="openCreate"
+        >
+          Zoom To
         </v-btn>
       </div>
     </v-main>
@@ -76,5 +85,15 @@ export default {
 }
 .v-field-label--floating {
   font-size: 0.75rem;
+}
+.post-create-btn {
+  position: absolute;
+  z-index: 1000;
+  bottom: 15%;
+}
+.create-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>
